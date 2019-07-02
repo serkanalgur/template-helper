@@ -39,6 +39,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 
 			add_filter( 'wp_handle_upload_prefilter', array( __CLASS__, 'correct_utf_chars_filename' ) );
 			add_action( 'dashboard_glance_items', array( __CLASS__, 'cpt_to_dashboard_info' ) );
+			add_action( 'wp_dashboard_setup', array( __CLASS__, 'disable_default_dashboard_widgets' ), 999 );
 		}
 
 		/**
@@ -88,6 +89,31 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 				}
 			endif;
 
+		}
+
+		/**
+		 * remove unused or not needed dashboard widgets
+		 *
+		 * @since 1.0.0
+		*/
+
+		public function disable_default_dashboard_widgets() {
+			global $wp_meta_boxes;
+			// wp..
+			unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'] );
+			unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments'] );
+			unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links'] );
+			unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins'] );
+			unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_primary'] );
+			unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary'] );
+			unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press'] );
+			unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts'] );
+			// bbpress
+			unset( $wp_meta_boxes['dashboard']['normal']['core']['bbp-dashboard-right-now'] );
+			// yoast seo
+			unset( $wp_meta_boxes['dashboard']['normal']['core']['yoast_db_widget'] );
+			// gravity forms
+			unset( $wp_meta_boxes['dashboard']['normal']['core']['rg_forms_dashboard'] );
 		}
 
 	}
