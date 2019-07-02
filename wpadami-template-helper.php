@@ -4,7 +4,7 @@
  * WPAdamı Template Helper
  *
  * @package   WPAdami_Template_Helper
- * @author    Gary Jones <gary@garyjones.co.uk>
+ * @author    Serkan Algur <info@wpadami.com>
  * @license   GPL-3.0+
  * @link      https://github.com/serkanalgur/wpadami-template-helper
  * @copyright 2019 Serkan Algur, WPAdamı
