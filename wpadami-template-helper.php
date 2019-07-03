@@ -50,9 +50,9 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 
 		public function correct_utf_chars_filename( $file = array() ) {
 
-			$find_utf_8   = array( 'İ', 'Ü', 'Ğ', 'Ö', 'Ç', 'Ş', 'ş', 'ç', 'ö', 'ğ', 'ü', 'ı' ); // Turkish chars for now
-			$change_utf_8 = array( 'I', 'U', 'G', 'O', 'C', 'S', 's', 'c', 'o', 'g', 'u', 'i' ); // Turkish chars for now
-			$file['name'] = strtolower( str_replace( $find_utf_8, $change_utf_8, $file['name'] ) );
+			include plugin_dir_path( __FILE__ ) . '/helpers/foreign_chars.php';
+
+			$file['name'] = strtolower( preg_replace( array_keys( $foreign_characters ), array_values( $foreign_characters ), $file['name'] ) );
 
 			return $file;
 		}
