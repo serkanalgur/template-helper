@@ -145,7 +145,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 
 		public function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 
-			if ( 'dns-prefetch' == $relation_type ) {
+			if ( 'dns-prefetch' === $relation_type ) {
 
 				// Strip out any URLs referencing the WordPress.org emoji location
 				$emoji_svg_url_bit = 'https://s.w.org/images/core/emoji/';
@@ -158,9 +158,6 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 
 			return $urls;
 		}
-
-
-
 	}
 }
 
