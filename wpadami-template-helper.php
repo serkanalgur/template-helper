@@ -13,7 +13,7 @@
  * Plugin Name:       WPAdamı Template Helper
  * Plugin URI:        https://github.com/serkanalgur/wpadami-template-helper
  * Description:       Template helper by Serkan Algur
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Serkan Algur
  * Author URI:        https://github.com/serkanalgur
  * Text Domain:       wpadami-template-helper
@@ -40,7 +40,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 			add_filter( 'wp_handle_upload_prefilter', array( __CLASS__, 'correct_utf_chars_filename' ) );
 			add_action( 'dashboard_glance_items', array( __CLASS__, 'cpt_to_dashboard_info' ) );
 			add_action( 'wp_dashboard_setup', array( __CLASS__, 'disable_default_dashboard_widgets' ), 999 );
-			add_action( 'init', array( __CLASS__, 'disable_emojis_in_theme_wpa' ) );
+			add_action( 'init', array( __CLASS__, 'multiple_init_for_add_action_init' ) );
 			add_filter( 'tiny_mce_plugins', array( __CLASS__, 'disable_emojis_tinymce_wpa' ) );
 			add_filter( 'wp_resource_hints', array( __CLASS__, 'disable_emojis_remove_dns_prefetch_wpa' ), 10, 2 );
 		}
@@ -158,6 +158,24 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 
 			return $urls;
 		}
+
+		public function generator_other_stuff_remove_wpa() {
+			add_filter( 'show_admin_bar', '__return_false' );
+			remove_action( 'wp_head', 'wp_generator' );
+			add_filter( 'xmlrpc_enabled', '__return_false' );
+			remove_action( 'wp_head', 'rsd_link' );
+			remove_action( 'wp_head', 'wlwmanifest_link' );
+			remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+			remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+			remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
+			remove_action( 'template_redirect', 'rest_output_link_header', 11, 0 );
+		}
+
+		public function multiple_init_for_add_action_init() {
+			self::disable_emojis_in_theme_wpa();
+			self::generator_other_stuff_remove_wpa();
+		}
+
 	}
 }
 
