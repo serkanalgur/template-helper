@@ -143,7 +143,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 			return array();
 		}
 
-		public function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
+		public function disable_emojis_remove_dns_prefetch_wpa( $urls, $relation_type ) {
 
 			if ( 'dns-prefetch' === $relation_type ) {
 
