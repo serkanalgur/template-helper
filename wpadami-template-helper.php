@@ -43,6 +43,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 			add_action( 'init', array( __CLASS__, 'multiple_init_for_add_action_init' ) );
 			add_filter( 'tiny_mce_plugins', array( __CLASS__, 'disable_emojis_tinymce_wpa' ) );
 			add_filter( 'wp_resource_hints', array( __CLASS__, 'disable_emojis_remove_dns_prefetch_wpa' ), 10, 2 );
+			add_filter( 'upload_mimes', array( __CLASS__, 'add_more_mime_types_to_wordpress' ) );
 		}
 
 		/**
@@ -158,6 +159,30 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 
 			return $urls;
 		}
+
+		/**
+		 * Add more mimetypes
+		 *
+		 * @since 1.1.0
+		*/
+
+		public function add_more_mime_types_to_wordpress( $mimes = array() ) {
+			$mimes['svg']   = 'image/svg+xml';
+			$mimes['webp']  = 'image/webp';
+			$mimes['ttf']   = 'application/x-font-ttf';
+			$mimes['otf']   = 'application/x-font-opentype';
+			$mimes['woff']  = 'application/font-woff';
+			$mimes['woff2'] = 'application/font-woff2';
+			$mimes['eot']   = 'application/vnd.ms-fontobject';
+			$mimes['sfnt']  = 'application/font-sfnt';
+			return $mimes;
+		}
+
+		/**
+		 * remove generator and other tags
+		 *
+		 * @since 1.0.0
+		*/
 
 		public function generator_other_stuff_remove_wpa() {
 			add_filter( 'show_admin_bar', '__return_false' );
