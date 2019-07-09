@@ -13,7 +13,7 @@
  * Plugin Name:       WPAdamı Template Helper
  * Plugin URI:        https://github.com/serkanalgur/wpadami-template-helper
  * Description:       Template helper by Serkan Algur
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            Serkan Algur
  * Author URI:        https://github.com/serkanalgur
  * Text Domain:       wpadami-template-helper
@@ -44,6 +44,8 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 			add_filter( 'tiny_mce_plugins', array( __CLASS__, 'disable_emojis_tinymce_wpa' ) );
 			add_filter( 'wp_resource_hints', array( __CLASS__, 'disable_emojis_remove_dns_prefetch_wpa' ), 10, 2 );
 			add_filter( 'upload_mimes', array( __CLASS__, 'add_more_mime_types_to_wordpress' ) );
+			add_filter( 'style_loader_src', array( __CLASS__, 'remove_version_info_from_styles_and_scripts' ), 9999 );
+			add_filter( 'script_loader_src', array( __CLASS__, 'remove_version_info_from_styles_and_scripts' ), 9999 );
 		}
 
 		/**
@@ -199,6 +201,20 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 		public function multiple_init_for_add_action_init() {
 			self::disable_emojis_in_theme_wpa();
 			self::generator_other_stuff_remove_wpa();
+		}
+
+		/**
+		 * remove version tags
+		 *
+		 * @since 1.1.1
+		*/
+
+
+		public function remove_version_info_from_styles_and_scripts( $src ) {
+			if ( strpos( $src, 'ver=' ) ) {
+				$src = remove_query_arg( 'ver', $src );
+			}
+			return $src;
 		}
 
 	}
