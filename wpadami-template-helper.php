@@ -54,7 +54,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 		 * @since 1.0.0
 		*/
 
-		public function correct_utf_chars_filename( $file = array() ) {
+		public static function correct_utf_chars_filename( $file = array() ) {
 
 			include plugin_dir_path( __FILE__ ) . '/helpers/foreign_chars.php';
 
@@ -69,7 +69,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 		 * @since 1.0.0
 		*/
 
-		public function cpt_to_dashboard_info() {
+		public static function cpt_to_dashboard_info() {
 
 			$post_types = get_post_types( array( '_builtin' => false ), 'objects' );
 			if ( $post_types ) :
@@ -103,7 +103,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 		 * @since 1.0.0
 		*/
 
-		public function disable_default_dashboard_widgets() {
+		public static function disable_default_dashboard_widgets() {
 			global $wp_meta_boxes;
 			// wp..
 			unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'] );
@@ -128,7 +128,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 		 * @since 1.0.0
 		*/
 
-		public function disable_emojis_in_theme_wpa() {
+		public static function disable_emojis_in_theme_wpa() {
 			remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 			remove_action( 'wp_print_styles', 'print_emoji_styles' );
@@ -138,7 +138,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 			remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 		}
 
-		public function disable_emojis_tinymce_wpa( $plugins ) {
+		public static function disable_emojis_tinymce_wpa( $plugins ) {
 			if ( is_array( $plugins ) ) {
 				return array_diff( $plugins, array( 'wpemoji' ) );
 			}
@@ -146,7 +146,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 			return array();
 		}
 
-		public function disable_emojis_remove_dns_prefetch_wpa( $urls, $relation_type ) {
+		public static function disable_emojis_remove_dns_prefetch_wpa( $urls, $relation_type ) {
 
 			if ( 'dns-prefetch' === $relation_type ) {
 
@@ -168,7 +168,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 		 * @since 1.1.0
 		*/
 
-		public function add_more_mime_types_to_wordpress( $mimes = array() ) {
+		public static function add_more_mime_types_to_wordpress( $mimes = array() ) {
 			$mimes['svg']   = 'image/svg+xml';
 			$mimes['webp']  = 'image/webp';
 			$mimes['ttf']   = 'application/x-font-ttf';
@@ -186,7 +186,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 		 * @since 1.0.0
 		*/
 
-		public function generator_other_stuff_remove_wpa() {
+		public static function generator_other_stuff_remove_wpa() {
 			add_filter( 'show_admin_bar', '__return_false' );
 			remove_action( 'wp_head', 'wp_generator' );
 			add_filter( 'xmlrpc_enabled', '__return_false' );
@@ -198,7 +198,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 			remove_action( 'template_redirect', 'rest_output_link_header', 11, 0 );
 		}
 
-		public function multiple_init_for_add_action_init() {
+		public static function multiple_init_for_add_action_init() {
 			self::disable_emojis_in_theme_wpa();
 			self::generator_other_stuff_remove_wpa();
 		}
@@ -210,7 +210,7 @@ if ( ! class_exists( 'WPAdami_Template_Helper', true ) ) {
 		*/
 
 
-		public function remove_version_info_from_styles_and_scripts( $src ) {
+		public static function remove_version_info_from_styles_and_scripts( $src ) {
 			if ( strpos( $src, 'ver=' ) ) {
 				$src = remove_query_arg( 'ver', $src );
 			}
